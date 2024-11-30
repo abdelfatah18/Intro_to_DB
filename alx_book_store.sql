@@ -1,33 +1,34 @@
--- Database: alx_book_store
+-- إنشاء قاعدة البيانات
 CREATE DATABASE alx_book_store;
 
+-- استخدام قاعدة البيانات alx_book_store
 USE alx_book_store;
 
--- Table: Authors
+-- إنشاء جدول Authors
 CREATE TABLE Authors (
     author_id INT AUTO_INCREMENT PRIMARY KEY,
     author_name VARCHAR(215) NOT NULL
 );
 
--- Table: Books
+-- إنشاء جدول Books
 CREATE TABLE Books (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(130) NOT NULL,
     author_id INT,
     price DOUBLE NOT NULL,
-    publication_date DATE NOT NULL,
+    publication_date DATE,
     FOREIGN KEY (author_id) REFERENCES Authors(author_id)
 );
 
--- Table: Customers
+-- إنشاء جدول Customers
 CREATE TABLE Customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_name VARCHAR(215) NOT NULL,
-    email VARCHAR(215) NOT NULL UNIQUE,
+    email VARCHAR(215) UNIQUE NOT NULL,
     address TEXT NOT NULL
 );
 
--- Table: Orders
+-- إنشاء جدول Orders
 CREATE TABLE Orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT,
@@ -35,7 +36,7 @@ CREATE TABLE Orders (
     FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
 );
 
--- Table: Order_Details
+-- إنشاء جدول Order_Details
 CREATE TABLE Order_Details (
     orderdetailid INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
