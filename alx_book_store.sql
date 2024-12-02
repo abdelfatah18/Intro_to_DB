@@ -1,16 +1,16 @@
--- إنشاء قاعدة البيانات
-CREATE DATABASE alx_book_store;
 
--- استخدام قاعدة البيانات alx_book_store
+CREATE DATABAS alx_book_store;
+
+
 USE alx_book_store;
 
--- إنشاء جدول Authors
+
 CREATE TABLE Authors (
     author_id INT AUTO_INCREMENT PRIMARY KEY,
     author_name VARCHAR(215) NOT NULL
 );
 
--- إنشاء جدول Books
+
 CREATE TABLE Books (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(130) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE Books (
     FOREIGN KEY (author_id) REFERENCES Authors(author_id)
 );
 
--- إنشاء جدول Customers
+
 CREATE TABLE Customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_name VARCHAR(215) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE Customers (
     address TEXT NOT NULL
 );
 
--- إنشاء جدول Orders
+
 CREATE TABLE Orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT,
@@ -36,7 +36,7 @@ CREATE TABLE Orders (
     FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
 );
 
--- إنشاء جدول Order_Details
+
 CREATE TABLE Order_Details (
     orderdetailid INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
