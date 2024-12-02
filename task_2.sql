@@ -1,45 +1,34 @@
+-- تحديد قاعدة البيانات لاستخدامها
 USE alx_book_store;
 
+-- إنشاء جدول authors
 CREATE TABLE AUTHORS (
-    author_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    birth_date DATE,
-    nationality VARCHAR(100)
+    AUTHOR_ID INT AUTO_INCREMENT PRIMARY KEY,
+    NAME VARCHAR(255) NOT NULL,
+    BIRTH_DATE DATE,
+    NATIONALITY VARCHAR(100)
 );
 
+-- إنشاء جدول books
 CREATE TABLE BOOKS (
-    book_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    author_id INT NOT NULL,
-    genre VARCHAR(100),
-    price DECIMAL(10, 2) NOT NULL,
-    stock_quantity INT NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES AUTHORS(author_id)
+    BOOK_ID INT AUTO_INCREMENT PRIMARY KEY,
+    TITLE VARCHAR(255) NOT NULL,
+    AUTHOR_ID INT NOT NULL,
+    GENRE VARCHAR(100),
+    PRICE DECIMAL(10, 2) NOT NULL,
+    STOCK_QUANTITY INT NOT NULL,
+    FOREIGN KEY (AUTHOR_ID) REFERENCES AUTHORS(AUTHOR_ID)
 );
 
+-- إنشاء جدول customers
 CREATE TABLE CUSTOMERS (
-    customer_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    phone_number VARCHAR(20),
-    address TEXT
+    CUSTOMER_ID INT AUTO_INCREMENT PRIMARY KEY,
+    FIRST_NAME VARCHAR(255) NOT NULL,
+    LAST_NAME VARCHAR(255) NOT NULL,
+    EMAIL VARCHAR(255) UNIQUE NOT NULL,
+    PHONE_NUMBER VARCHAR(20),
+    ADDRESS TEXT
 );
 
-CREATE TABLE ORDERS (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT NOT NULL,
-    order_date DATE NOT NULL,
-    total_price DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES CUSTOMERS(customer_id)
-);
-
-CREATE TABLE ORDER_DETAILS (
-    order_detail_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
-    book_id INT NOT NULL,
-    quantity INT NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES ORDERS(order_id),
-    FOREIGN KEY (book_id) REFERENCES BOOKS(book_id)
-);
+-- إنشاء جدول orders
+CREATE TABLE
