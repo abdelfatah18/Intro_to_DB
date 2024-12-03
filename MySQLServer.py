@@ -23,9 +23,9 @@ def create_database():
         else:
             print("Failed to connect to the database.")
     
-    except Error as e:
-        # التعامل مع الأخطاء مثل مشاكل الاتصال
-        print(f"Error: {e}")
+    except mysql.connector.Error as e:
+        # التعامل مع الأخطاء الخاصة بـ MySQL
+        print(f"MySQL Error: {e}")
     
     finally:
         # التأكد من إغلاق الاتصال بشكل صحيح
