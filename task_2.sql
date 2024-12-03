@@ -1,44 +1,46 @@
--- استخدام قاعدة البيانات alx_book_store
-USE alx_book_store;
-
--- إنشاء جدول authors أولاً
-CREATE TABLE IF NOT EXISTS authors (
-    author_id INT AUTO_INCREMENT PRIMARY KEY,
-    author_name VARCHAR(215) NOT NULL
-);
-
--- إنشاء جدول books
-CREATE TABLE IF NOT EXISTS books (
+-- Create the Books table
+CREATE TABLE IF NOT EXISTS Books (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(130) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     author_id INT NOT NULL,
-    price DOUBLE NOT NULL,
-    publication_date DATE,
-    FOREIGN KEY (author_id) REFERENCES authors(author_id)
+    price DECIMAL(10, 2) NOT NULL,
+    stock INT NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES Authors(author_id)
 );
 
--- إنشاء جدول customers
-CREATE TABLE IF NOT EXISTS customers (
+-- Create the Authors table
+CREATE TABLE IF NOT EXISTS Authors (
+    author_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    bio TEXT
+);
+
+-- Create the Customers table
+CREATE TABLE IF NOT EXISTS Customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_name VARCHAR(215) NOT NULL,
-    email VARCHAR(215) NOT NULL,
-    address TEXT NOT NULL
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone VARCHAR(15),
+    address TEXT
 );
 
--- إنشاء جدول orders
-CREATE TABLE IF NOT EXISTS orders (
+-- Create the Orders table
+CREATE TABLE IF NOT EXISTS Orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
-    order_date DATE NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    total_price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
 );
 
--- إنشاء جدول order_details
-CREATE TABLE IF NOT EXISTS order_details (
-    orderdetailid INT AUTO_INCREMENT PRIMARY KEY,
+-- Create the Order_Details table
+CREATE TABLE IF NOT EXISTS Order_Details (
+    order_detail_id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
     book_id INT NOT NULL,
-    quantity DOUBLE NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (book_id) REFERENCES books(book_id)
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
 );
