@@ -1,51 +1,41 @@
--- Use the alx_book_store database
-USE alx_book_store;
-
--- Create the authors table
-CREATE TABLE AUTHORS (
-    AUTHOR_ID INT AUTO_INCREMENT PRIMARY KEY,
-    NAME VARCHAR(255) NOT NULL,
-    BIRTH_DATE DATE,
-    NATIONALITY VARCHAR(100)
+-- Creating the books table
+CREATE TABLE IF NOT EXISTS books (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(130) NOT NULL,
+    author_id INT NOT NULL,
+    price DOUBLE NOT NULL,
+    publication_date DATE,
+    FOREIGN KEY (author_id) REFERENCES authors(author_id)
 );
 
--- Create the books table
-CREATE TABLE BOOKS (
-    BOOK_ID INT AUTO_INCREMENT PRIMARY KEY,
-    TITLE VARCHAR(255) NOT NULL,
-    AUTHOR_ID INT NOT NULL,
-    GENRE VARCHAR(100),
-    PRICE DECIMAL(10, 2) NOT NULL,
-    STOCK_QUANTITY INT NOT NULL,
-    FOREIGN KEY (AUTHOR_ID) REFERENCES AUTHORS(AUTHOR_ID)
+-- Creating the authors table
+CREATE TABLE IF NOT EXISTS authors (
+    author_id INT AUTO_INCREMENT PRIMARY KEY,
+    author_name VARCHAR(215) NOT NULL
 );
 
--- Create the customers table
-CREATE TABLE CUSTOMERS (
-    CUSTOMER_ID INT AUTO_INCREMENT PRIMARY KEY,
-    FIRST_NAME VARCHAR(255) NOT NULL,
-    LAST_NAME VARCHAR(255) NOT NULL,
-    EMAIL VARCHAR(255) UNIQUE NOT NULL,
-    PHONE_NUMBER VARCHAR(20),
-    ADDRESS TEXT
+-- Creating the customers table
+CREATE TABLE IF NOT EXISTS customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(215) NOT NULL,
+    email VARCHAR(215) NOT NULL,
+    address TEXT NOT NULL
 );
 
--- Create the orders table
-CREATE TABLE ORDERS (
-    ORDER_ID INT AUTO_INCREMENT PRIMARY KEY,
-    CUSTOMER_ID INT NOT NULL,
-    ORDER_DATE DATE NOT NULL,
-    TOTAL_PRICE DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (CUSTOMER_ID) REFERENCES CUSTOMERS(CUSTOMER_ID)
+-- Creating the orders table
+CREATE TABLE IF NOT EXISTS orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
--- Create the order_details table
-CREATE TABLE ORDER_DETAILS (
-    ORDER_DETAIL_ID INT AUTO_INCREMENT PRIMARY KEY,
-    ORDER_ID INT NOT NULL,
-    BOOK_ID INT NOT NULL,
-    QUANTITY INT NOT NULL,
-    PRICE DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (ORDER_ID) REFERENCES ORDERS(ORDER_ID),
-    FOREIGN KEY (BOOK_ID) REFERENCES BOOKS(BOOK_ID)
+-- Creating the order_details table
+CREATE TABLE IF NOT EXISTS order_details (
+    orderdetailid INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    book_id INT NOT NULL,
+    quantity DOUBLE NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (book_id) REFERENCES books(book_id)
 );
